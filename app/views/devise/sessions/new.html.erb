@@ -24,3 +24,26 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<script>
+  var form = document.getElementById('new_<%= resource_name %>')
+
+  form.onsubmit = function(e) {
+    e.preventDefault();
+
+    _castle('createRequestToken').then(function(requestToken) {
+      // Populate a hidden field called `castle_request_token` with the
+      // request token
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'castle_request_token');
+      hiddenInput.setAttribute('value', requestToken);
+
+      // Add the hidden field to the form so it gets sent to the server
+      // before submitting the form
+      form.appendChild(hiddenInput);
+
+      form.submit();
+    });
+  };
+</script>

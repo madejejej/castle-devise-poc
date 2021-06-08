@@ -7,10 +7,13 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script src="https://d2t77mnxyo7adj.cloudfront.net/v1/c.js?986279357769827"></script>
+    <script src="https://d2t77mnxyo7adj.cloudfront.net/v1/c.js?<%= ENV.fetch('CASTLE_APP_ID') %>"></script>
   </head>
 
   <body>
+  <div>
+    <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+  </div>
     <%= yield %>
   </body>
 </html>
