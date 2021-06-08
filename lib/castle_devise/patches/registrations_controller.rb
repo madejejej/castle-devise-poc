@@ -26,7 +26,7 @@ module CastleDevise
         end
       rescue Castle::Error => e
         # log API errors and allow
-        logger.info e
+        logger.info "#{e}: #{e.message}"
       end
     end
   end
