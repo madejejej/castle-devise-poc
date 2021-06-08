@@ -1,0 +1,1 @@
+Castle.api_secret = ENV.fetch('CASTLE_API_SECRET')
