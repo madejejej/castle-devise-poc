@@ -31,10 +31,6 @@ module CastleDevise
         # log API errors and allow
         logger.info e
       end
-
-      def castle
-        Castle::Client.new
-      end
     end
   end
 end
