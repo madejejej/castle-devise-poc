@@ -10,8 +10,6 @@ module CastleDevise
       end
 
       def castle_filter
-        logger.info "Sending request to castle"
-
         response = castle.filter(
           event: '$registration',
           request_token: params['castle_request_token'],
@@ -20,7 +18,6 @@ module CastleDevise
             headers: Castle::Headers::Filter.new(request).call
           }
         )
-        logger.info "Castle response: #{response}"
 
         if response[:risk] >= 0.9
           flash[:error] = "Account cannot be created at this moment. Please try again later"
