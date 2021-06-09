@@ -14,10 +14,7 @@ Warden::Manager.after_authentication do |record, warden, opts|
         traits: record.castle_traits
       },
       request_token: warden.env['action_dispatch.request.parameters']['castle_request_token'],
-      context: {
-        ip: warden.env['action_dispatch.remote_ip'].calculate_ip,
-        headers: Castle::Headers::Filter.new(warden).call
-      }
+      context: Castle::Context::Prepare.call(Rack::Request.new(warden.env))
     )
 
     case response.dig(:policy, :action)

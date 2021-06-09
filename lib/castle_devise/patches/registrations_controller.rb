@@ -13,10 +13,7 @@ module CastleDevise
         response = castle.filter(
           event: '$registration',
           request_token: params['castle_request_token'],
-          context: {
-            ip: request.remote_ip,
-            headers: Castle::Headers::Filter.new(request).call
-          }
+          context: Castle::Context::Prepare.call(request)
         )
 
         if response[:risk] >= 0.9

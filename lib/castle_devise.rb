@@ -12,6 +12,7 @@ module CastleDevise
       yield configuration
 
       Castle.api_secret = configuration.api_secret
+      Castle.config.logger = configuration.logger
     end
   end
 end
