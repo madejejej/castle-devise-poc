@@ -10,7 +10,6 @@ module Devise
       end
 
       def castle_traits
-        { registered_at: created_at.utc.iso8601(3) }
       end
     end
   end
