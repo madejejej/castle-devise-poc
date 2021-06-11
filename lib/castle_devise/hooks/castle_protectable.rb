@@ -12,7 +12,7 @@ Warden::Manager.after_authentication do |record, warden, opts|
         id: record.castle_id,
         email: record.email,
         registered_at: record.created_at.utc.iso8601(3),
-        traits: record.castle_traits
+        traits: record.castle_traits || {}
       },
       request_token: warden.env['action_dispatch.request.parameters']['castle_request_token'],
       context: Castle::Context::Prepare.call(Rack::Request.new(warden.env))

@@ -10,6 +10,7 @@ module Devise
       end
 
       def castle_traits
+        {}
       end
     end
   end
