@@ -16,10 +16,13 @@ module CastleDevise
           context: Castle::Context::Prepare.call(request)
         )
 
-        if response[:risk] >= 0.9
+        case response.dig(:policy, :action)
+        when 'deny'
           flash[:error] = "Account cannot be created at this moment. Please try again later"
           redirect_to new_session_path(resource_name)
           return false
+        else
+          # everything fine, continue
         end
       rescue Castle::Error => e
         # log API errors and allow
