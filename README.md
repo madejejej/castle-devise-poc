@@ -53,31 +53,14 @@ Include Castle's c.js script in the head section of your layout:
 <%= castle_javascript_tag %>
 ```
 
-Add the following script to the bottom of both `devise/registrations/new.html.erb` and `devise/sessions/new.html.erb` (if you haven't generated them yet, run `rails generate devise:views`):
+Add the following tag to the the `<form>` tag in both `devise/registrations/new.html.erb` and `devise/sessions/new.html.erb` (if you haven't generated them yet, run `rails generate devise:views`):
 
-```html 
-<script>
-  var form = document.getElementById('new_<%= resource_name %>')
-
-  form.onsubmit = function(e) {
-    e.preventDefault();
-
-    _castle('createRequestToken').then(function(requestToken) {
-      // Populate a hidden field called `castle_request_token` with the
-      // request token
-      var hiddenInput = document.createElement('input');
-      hiddenInput.setAttribute('type', 'hidden');
-      hiddenInput.setAttribute('name', 'castle_request_token');
-      hiddenInput.setAttribute('value', requestToken);
-
-      // Add the hidden field to the form so it gets sent to the server
-      // before submitting the form
-      form.appendChild(hiddenInput);
-
-      form.submit();
-    });
-  };
-</script>
+```ruby
+<%= form_for @user do |f| %>
+  …
+  <%= castle_request_token %>
+  …
+<% end %>
 ```
 
 You're set! Now verify that everything works by logging in to your application as any user. You should be able to see that User on the [Castle Users Page](https://dashboard.castle.io/users)
